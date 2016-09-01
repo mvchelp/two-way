@@ -1,0 +1,99 @@
+﻿<html ng-app="MyApp">
+<head>
+    <title>Customers Order</title>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/CustomerScript/Module.js"></script>
+    <script src="~/Scripts/CustomerScript/Service.js"></script>
+    <script src="~/Scripts/CustomerScript/Controller.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/respond.min.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div style="margin:100px;">
+        <div ng-controller="CustomerController">
+            <div style="margin:30px;">
+
+                <form name="OrderForm" class="form-horizontal">
+
+                    <div>
+                        <h2>Add Customer Order</h2>
+                    </div><br />
+
+                    <div>
+                        <label>Name :</label>
+                        <input class="form-control" type="text" ng-model="Order.Name" />
+                    </div>
+                    <div>
+                        <label>Product No. :</label>
+                        <input class="form-control" type="number" ng-model="Order.ProductNo" />
+                    </div>
+                    <div>
+                        <label>Price :</label>
+                        <input class="form-control" type="number" ng-model="Order.Price" />
+                    </div>
+                    <div>
+                        <label>Quantity :</label>
+                        <input class="form-control" type="number" ng-model="Order.Quantity" />
+                    </div><br />
+                    <div>
+                        <label></label>
+                        <input type="button" class="btn btn-primary" value="Add" ng-click="addOrder(Order)" />
+                    </div>
+                </form>
+            </div>
+            <div style="padding-top: 15px;">
+                <table class="table table-hover table-responsive text-center">
+
+                    <tr>
+                        <td>Name</td>
+                        <td>Product No</td>
+                        <td>Price</td>
+                        <td>Quantity</td>
+                        <td>Total Price</td>
+                        <td>Action</td>
+                    </tr>
+                    <tr ng-repeat="Order in Orders">
+                        <td>
+                            <span ng-hide="editMode">{{Order.Name}}</span>
+                            <input type="text" ng-show="editMode" ng-model="Order.Name" />
+                        </td>
+                        <td>
+                            <span ng-hide="editMode">{{Order.ProductNo}}</span>
+                            <input type="text" ng-show="editMode" ng-model="Order.ProductNo" />
+                        </td>
+                        <td>
+                            <span ng-hide="editMode">{{Order.Price}}</span>
+                            <input type="number" ng-show="editMode" ng-model="Order.Price" />
+                        </td>
+                        <td>
+                            <span ng-hide="editMode">{{Order.Quantity}}</span>
+                            <input type="number" ng-show="editMode" ng-model="Order.Quantity" />
+                        </td>
+                        <td>{{(Order.Quantity) * (Order.Price)}}</td>
+                        <td>
+                            <span>
+                                <button class="btn btn-primary" type="submit" ng-hide="editMode" ng-click="editMode = true; editOrder(Order)">Edit</button>
+                            </span>
+                            <span>
+                                <button class="btn btn-success" type="submit" ng-show="editMode" ng-click="editMode = false">Save</button>
+                            </span>
+                            <span>
+                                <input class="btn btn-danger" type="button" value="Delete" ng-click="removeOrder($index)" />
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="button" class="btn btn-primary" value="Final Save" ng-click="FinalSave()" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
